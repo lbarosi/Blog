@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts | Cacos &amp; Códigos</title>
-    <link>/post/</link>
-      <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://lbarosi.github.io/Blog/post/</link>
+      <atom:link href="https://lbarosi.github.io/Blog/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 24 Mar 2020 20:41:42 -0300</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Posts</title>
-      <link>/post/</link>
+      <link>https://lbarosi.github.io/Blog/post/</link>
     </image>
     
     <item>
       <title>Pulsares</title>
-      <link>/post/pulsares/</link>
+      <link>https://lbarosi.github.io/Blog/post/pulsares/</link>
       <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>/post/pulsares/</guid>
+      <guid>https://lbarosi.github.io/Blog/post/pulsares/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Importando os módulos necessários
 import numpy as np
 import matplotlib.pyplot as plt
@@ -198,9 +198,9 @@ plt.show();
     
     <item>
       <title>Writing technical content in Academic</title>
-      <link>/post/writing-technical-content/</link>
+      <link>https://lbarosi.github.io/Blog/post/writing-technical-content/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>/post/writing-technical-content/</guid>
+      <guid>https://lbarosi.github.io/Blog/post/writing-technical-content/</guid>
       <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
