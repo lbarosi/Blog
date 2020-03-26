@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python | Cacos &amp; Códigos</title>
-    <link>/categories/python/</link>
-      <atom:link href="/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://lbarosi.github.io/Blog/categories/python/</link>
+      <atom:link href="https://lbarosi.github.io/Blog/categories/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 24 Mar 2020 20:41:42 -0300</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Python</title>
-      <link>/categories/python/</link>
+      <link>https://lbarosi.github.io/Blog/categories/python/</link>
     </image>
     
     <item>
       <title>Pulsares</title>
-      <link>/post/pulsares/</link>
+      <link>https://lbarosi.github.io/Blog/post/pulsares/</link>
       <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>/post/pulsares/</guid>
+      <guid>https://lbarosi.github.io/Blog/post/pulsares/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Importando os módulos necessários
 import numpy as np
 import matplotlib.pyplot as plt

@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags | Cacos &amp; Códigos</title>
-    <link>/tags/</link>
-      <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://lbarosi.github.io/Blog/tags/</link>
+      <atom:link href="https://lbarosi.github.io/Blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 24 Mar 2020 20:41:42 -0300</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Tags</title>
-      <link>/tags/</link>
+      <link>https://lbarosi.github.io/Blog/tags/</link>
     </image>
     
     <item>
       <title>Astropy</title>
-      <link>/tags/astropy/</link>
+      <link>https://lbarosi.github.io/Blog/tags/astropy/</link>
       <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>/tags/astropy/</guid>
+      <guid>https://lbarosi.github.io/Blog/tags/astropy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>FRB</title>
-      <link>/tags/frb/</link>
+      <link>https://lbarosi.github.io/Blog/tags/frb/</link>
       <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>/tags/frb/</guid>
+      <guid>https://lbarosi.github.io/Blog/tags/frb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pulsars</title>
-      <link>/tags/pulsars/</link>
+      <link>https://lbarosi.github.io/Blog/tags/pulsars/</link>
       <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>/tags/pulsars/</guid>
+      <guid>https://lbarosi.github.io/Blog/tags/pulsars/</guid>
       <description></description>
     </item>
     
