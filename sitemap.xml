@@ -33,8 +33,43 @@
   </url>
   
   <url>
+    <loc>https://lbarosi.github.io/Blog/tags/brasil/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/categories/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/categories/data-science/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/post/grandesfortunas/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lbarosi.github.io/Blog/post/</loc>
-    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/categories/python/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/tags/renda/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/tags/</loc>
+    <lastmod>2020-03-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -57,16 +92,7 @@
   </url>
   
   <url>
-    <loc>https://lbarosi.github.io/Blog/post/grandesfortunas/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://lbarosi.github.io/Blog/authors/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/categories/</loc>
   </url>
   
   <url>
@@ -75,10 +101,6 @@
   
   <url>
     <loc>https://lbarosi.github.io/Blog/publication_types/</loc>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/tags/</loc>
   </url>
   
 </urlset>
