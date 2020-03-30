@@ -5,36 +5,12 @@
     <link>https://lbarosi.github.io/Blog/tags/</link>
       <atom:link href="https://lbarosi.github.io/Blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 24 Mar 2020 20:41:42 -0300</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Tags</title>
       <link>https://lbarosi.github.io/Blog/tags/</link>
     </image>
-    
-    <item>
-      <title>Astropy</title>
-      <link>https://lbarosi.github.io/Blog/tags/astropy/</link>
-      <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>https://lbarosi.github.io/Blog/tags/astropy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>FRB</title>
-      <link>https://lbarosi.github.io/Blog/tags/frb/</link>
-      <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>https://lbarosi.github.io/Blog/tags/frb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pulsars</title>
-      <link>https://lbarosi.github.io/Blog/tags/pulsars/</link>
-      <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>https://lbarosi.github.io/Blog/tags/pulsars/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

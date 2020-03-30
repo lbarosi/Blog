@@ -77,190 +77,6 @@
     </item>
     
     <item>
-      <title>Pulsares</title>
-      <link>https://lbarosi.github.io/Blog/post/pulsares/</link>
-      <pubDate>Tue, 24 Mar 2020 20:41:42 -0300</pubDate>
-      <guid>https://lbarosi.github.io/Blog/post/pulsares/</guid>
-      <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Importando os módulos necessários
-import numpy as np
-import matplotlib.pyplot as plt
-from astropy.io import ascii
-from astropy.coordinates import SkyCoord
-import astropy.coordinates as coord
-import astropy.units as u
-import pandas as pd
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&#34;pulsares&#34;&gt;Pulsares&lt;/h2&gt;
-&lt;p&gt;Podemos acessar o catálogo de pulsares em &lt;a href=&#34;https://www.atnf.csiro.au/research/pulsar/index.html&#34;&gt;https://www.atnf.csiro.au/research/pulsar/index.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;The ATNF Pulsar Catalogue&amp;rdquo;, R. N. Manchester, G. B. Hobbs, A. Teoh &amp;amp; M. Hobbs, Astronomical Journal, 129, 1993-2006 (2005) and by quoting the web address &lt;a href=&#34;http://www.atnf.csiro.au/research/pulsar/psrcat&#34;&gt;http://www.atnf.csiro.au/research/pulsar/psrcat&lt;/a&gt; for updated versions.&lt;/p&gt;
-&lt;p&gt;Este catálogo pode ser acessado online ou pelo programa psrcat. Eu apenas salvei as informações em um formato CSV.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Lemos os dados, definimos o separador, cuidados do cabeçalho e dos valores esquisitos que aparecem no arquivo.
-df = pd.read_csv(&amp;quot;ATNFcatalogP0.csv&amp;quot;, sep=&amp;quot;;&amp;quot;, header=0, na_values=&amp;quot;*&amp;quot;, keep_default_na=True)
-#Horrível mas ocabecalho original tem duas linhas, estou jogando uma fora.
-df = df.drop([0])
-#Voilá
-df.head(3)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div&gt;
-&lt;style scoped&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&lt;pre&gt;&lt;code&gt;.dataframe tbody tr th {
-    vertical-align: top;
-}
-
-.dataframe thead th {
-    text-align: right;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
-&lt;table border=&#34;1&#34; class=&#34;dataframe&#34;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&#34;text-align: right;&#34;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;num&lt;/th&gt;
-      &lt;th&gt;NAME&lt;/th&gt;
-      &lt;th&gt;Gl&lt;/th&gt;
-      &lt;th&gt;Gb&lt;/th&gt;
-      &lt;th&gt;RAJD&lt;/th&gt;
-      &lt;th&gt;DECJD&lt;/th&gt;
-      &lt;th&gt;P0&lt;/th&gt;
-      &lt;th&gt;DM&lt;/th&gt;
-      &lt;th&gt;S1400&lt;/th&gt;
-      &lt;th&gt;R_LUM14&lt;/th&gt;
-      &lt;th&gt;Unnamed: 10&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;J0002+6216&lt;/td&gt;
-      &lt;td&gt;117.327&lt;/td&gt;
-      &lt;td&gt;-0.074&lt;/td&gt;
-      &lt;td&gt;0.742375&lt;/td&gt;
-      &lt;td&gt;62.269278&lt;/td&gt;
-      &lt;td&gt;0.115364&lt;/td&gt;
-      &lt;td&gt;218.60&lt;/td&gt;
-      &lt;td&gt;0.02&lt;/td&gt;
-      &lt;td&gt;8.90e-01&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;J0006+1834&lt;/td&gt;
-      &lt;td&gt;108.172&lt;/td&gt;
-      &lt;td&gt;-42.985&lt;/td&gt;
-      &lt;td&gt;1.520000&lt;/td&gt;
-      &lt;td&gt;18.583056&lt;/td&gt;
-      &lt;td&gt;0.693748&lt;/td&gt;
-      &lt;td&gt;11.41&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;3&lt;/td&gt;
-      &lt;td&gt;J0007+7303&lt;/td&gt;
-      &lt;td&gt;119.660&lt;/td&gt;
-      &lt;td&gt;10.463&lt;/td&gt;
-      &lt;td&gt;1.757083&lt;/td&gt;
-      &lt;td&gt;73.052056&lt;/td&gt;
-      &lt;td&gt;0.315873&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;coordenadas-galacticas&#34;&gt;Coordenadas Galacticas&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# pandas não reconheceu l e b como números, corrigimos isto aqui.
-df[&amp;quot;Gl&amp;quot;] = df.Gl.astype(float)
-df[&amp;quot;Gb&amp;quot;] = df.Gb.astype(float)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Vamos usar uma coordenada do tipo ângulo do astropy.
-# a Longitude Galáctica vai de é um ângulo de -180 a 180
-# Passamos tudo para radianos
-GL = coord.Angle(df.Gl*u.degree)
-GL = GL.wrap_at(180*u.degree)
-df[&amp;quot;GB&amp;quot;] = coord.Angle(df.Gb*u.degree).radian
-df[&amp;quot;GL&amp;quot;] = GL.radian
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize=(12,8))
-ax = fig.add_subplot(111, projection=&amp;quot;mollweide&amp;quot;)
-ax.set_title(&amp;quot;Pulsares em Coordenadas Galácticas&amp;quot;)
-ax.scatter(df.GL, df.GB, s = 1)
-ax.grid(True)
-#fig.savefig(&#39;PulsarsG.png&#39;, dpi=150)
-plt.show();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./PulsarPlot_8_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;coordenadas-equatoriais&#34;&gt;Coordenadas Equatoriais&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Astropy sabe transformar os sistemas de coordenadas.
-DATA = SkyCoord(l = df.GL, b = df.GB, frame = &amp;quot;galactic&amp;quot;, unit = u.rad )
-DATARaDec = DATA.icrs
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Ascenção Reta é um ângulo de -180 a 180
-# Skycoord devolve os parâmetros em ângulos, vamos voltar para radianos, por causa do plot.
-RAradian = DATARaDec.ra.wrap_at(180*u.degree).radian
-DECradian = DATARaDec.dec.radian
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize=(12,8))
-ax = fig.add_subplot(111, projection=&amp;quot;mollweide&amp;quot;)
-ax.set_title(&amp;quot;Pulsares em Coordenadas Equatoriais&amp;quot;)
-ax.scatter(RAradian, DECradian, s = 1, c=&amp;quot;red&amp;quot;)
-ax.grid(True)
-#fig.savefig(&#39;PulsarsICRS.png&#39;, dpi=150)
-plt.show();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./PulsarPlot_12_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;fast-radio-bursts&#34;&gt;Fast Radio Bursts&lt;/h2&gt;
-&lt;p&gt;Também temos um catálogo de FRBs disponíveis facilmente.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;The most recent version of the catalogue database and previous versions are available in CSV format on Zenodo at the DOI: &lt;a href=&#34;http://www.frbcat.org/frbcat.csv&#34;&gt;http://www.frbcat.org/frbcat.csv&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;FRB = pd.read_csv(&amp;quot;frbcat_20200305.csv&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Mesmo procedimento utilizado para os pulsares.
-GL_F = coord.Angle(FRB.rop_gl*u.degree)
-GL_F = GL_F.wrap_at(180*u.degree)
-FRB[&amp;quot;GB&amp;quot;] = coord.Angle(FRB.rop_gb*u.degree).radian
-FRB[&amp;quot;GL&amp;quot;] = GL_F.radian
-FRB[&amp;quot;telescope&amp;quot;]=FRB.telescope.astype(&amp;quot;category&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import warnings
-warnings.filterwarnings(&amp;quot;ignore&amp;quot;, category=RuntimeWarning)
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Vamos pintar os FRBs pelo equipamento que o descobriu
-import matplotlib.cm as cm
-fig = plt.figure(figsize=(12,8))
-ax = fig.add_subplot(111, projection=&amp;quot;mollweide&amp;quot;)
-ax.set_title(&amp;quot;Pulsares e FRBs - Frame Galáctico&amp;quot;)
-ax.scatter(x = df.GL, y=df.GB, c = &amp;quot;blue&amp;quot;, s=1, alpha = 0.6)
-ax.scatter(x = FRB.GL, y = FRB.GB, marker = &amp;quot;1&amp;quot;, s=50, c= FRB.telescope.cat.codes, cmap=cm.tab10)
-ax.grid(True)
-#fig.savefig(&#39;Pulsars_FRB_Gal.png&#39;, dpi=150)
-plt.show();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./PulsarPlot_18_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize=(12,8))
-ax = fig.add_subplot(111, projection=&amp;quot;mollweide&amp;quot;)
-PONTOS = ax.scatter(x = FRB.GL, y = FRB.GB, marker = &amp;quot;x&amp;quot;, s = 5, alpha=0.90, c= FRB.telescope.cat.codes, cmap=cm.tab10)
-ax.grid(True)
-#fig.savefig(&#39;Pulsars_FRB_Gal.png&#39;, dpi=150)
-plt.show();
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;./PulsarPlot_19_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Writing technical content in Academic</title>
       <link>https://lbarosi.github.io/Blog/post/writing-technical-content/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
@@ -624,6 +440,517 @@ Three
 &lt;a href=&#34;https://spectrum.chat/academic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://lbarosi.github.io/Blog/post/grandesfortunas/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://lbarosi.github.io/Blog/post/grandesfortunas/</guid>
+      <description>&lt;h1 id=&#34;grandes-fortunas-no-brasil&#34;&gt;Grandes Fortunas no Brasil&lt;/h1&gt;
+&lt;p&gt;Date: 2020-03-29&lt;br&gt;
+Author: Luciano Barosi
+Categories: Python, Data Science
+Tags: Brasil, Renda
+featured: false&lt;/p&gt;
+&lt;!--eofm--&gt;
+&lt;h2 id=&#34;inicialização&#34;&gt;Inicialização&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# show result from all calculations of the cell
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = &amp;quot;all&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Kernel Python
+import os
+import sys
+os.chdir(sys.path[0])
+dirpath = os.getcwd()
+print(&amp;quot;Diretório atual: &amp;quot; + dirpath)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Diretório atual: /home/lbarosi/Pythonia/GrandesFortunas
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt 
+import matplotlib.ticker as ticker
+import pandas as pd
+import seaborn as sns
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;proposta&#34;&gt;Proposta&lt;/h2&gt;
+&lt;p&gt;Vamos utilizar os dados da Receita Federal disponíveis para procurar fazer uma boa visualização de dados sobre o que é de fato uma grande fortuna, para que casa pessoa possa se enxergar de maneira razoavelmente realista na pirâmide de renda e na distribuição por percentis.&lt;/p&gt;
+&lt;p&gt;Adicionalmente, queremos  vamos observar a participação no imposto de renda por Natureza de Ocupação e por Ocupação.&lt;/p&gt;
+&lt;h2 id=&#34;dados&#34;&gt;Dados&lt;/h2&gt;
+&lt;p&gt;A 
+&lt;a href=&#34;http://receita.economia.gov.br/dados/receitadata/estudos-e-tributarios-e-aduaneiros/estudos-e-estatisticas/distribuicao-da-renda-por-centis/dados-informacoes-e-graficos-setoriais-2008-a-2012&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Receita Federal&lt;/a&gt; possui uma base de dados com informações agregadas da basew de dados de declaração de impostos de renda no Brasil. Vamos utilizar as tabelas de &lt;strong&gt;Distribuição da Renda por Centis&lt;/strong&gt; para o ano de &lt;strong&gt;2018&lt;/strong&gt;, último ano disponível no momento de criação deste notebook.&lt;/p&gt;
+&lt;p&gt;O Salário mínimo é utilizado como base de cálculo das aliquotas, para o ano de 2017 (referente ao ano da declaração de &lt;strong&gt;2018&lt;/strong&gt;) o valor do salário segue abaixo, expresso em reais.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;SM = 937.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As alíquotas de imposto de renda para o ano base adotado são:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;Faixas = { 0 : 1903.99,
+           1 : 2826.65,
+           2 : 3751.05,
+           3 : 4664.68,
+           4 : 4664.68}
+Aliquota = { 0 : 0.,
+             1 : 0.075,
+             2 : 0.15,
+             3 : 0.225,
+             4 : 0.275}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O imposto de grandes fortunas prevê três faixas de tributação. Quem tem patrimônio líquido entre 12 mil e 20 mil vezes o limite de isenção (entre $R$ $ 22,8 milhões e $R$ $ 38 milhões) paga 0,5% de imposto. As fortunas entre 20 mil e 70 mil vezes (entre $R$ $ 38 milhões e $R$ $ 133,2 milhões) pagam 0,75%. Milionários com patrimônio acima desse valor são tributados em 1%.&lt;/p&gt;
+&lt;p&gt;As classes de renda no Brasil tem muitas definições, vamos adotar uma definição baseada na renda, tendo como base o salário mínimo. Esta é a definição mais fácil de ser aplicada nos dados e comparada em qualquer série temporal.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# Faixas 0.5, 0.75, 1
+classeB = [10*SM*12, 20*SM*12]
+classeC = [4*SM*12, 10*SM*12]
+classeD = [2*SM*12, 4*SM*12]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A tabela em excel da receita federal não é útil para análise de dados automatizada, selecionamos algumas colunas e colocamos em um formato adequado para o pandas em uma tabela &lt;em&gt;csv&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Consideramos a tabela disponível para as informações consolidadas &lt;strong&gt;RB2&lt;/strong&gt; que inclui renda tributável, participações societárias, lucros e dividendos e rendas sujeitas a tributação exclusiva.&lt;/p&gt;
+&lt;p&gt;Selecionamos os percentis (&lt;strong&gt;centil&lt;/strong&gt;), o número de contribuintes (&lt;strong&gt;contribuinte&lt;/strong&gt;), o limite superior do percentil (&lt;strong&gt;centil_SUP&lt;/strong&gt; em R$), a média de renda do percentil (&lt;strong&gt;media&lt;/strong&gt; em R$) e o importo devido da faixa (&lt;strong&gt;IR&lt;/strong&gt; em milhões de R$).&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df = pd.read_csv(&amp;quot;./DATA/centis-ac2018.csv&amp;quot;, sep = &amp;quot;;&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;análise&#34;&gt;Análise&lt;/h2&gt;
+&lt;p&gt;Criamos uma amostra da população em cada percentil dividindo a quantidade da população do percentil por 100 e distribuimos suas rendas de maneira uniforme no intervalo. O intuito aqui é puramente gráfico, para mostrar a densidade de pessoas em cada faixa de renda.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;tmp = np.empty(len(df.media), dtype=object)
+for i in np.arange(0,len(df.media)):
+    def step(x):
+        if x&amp;lt; 90:
+            return 0.5
+        else:
+            return 0.05
+    st = step(df.centil[i])
+    passo = 2*st
+    tmp[i] = np.array([df.centil[i]-st + np.random.uniform(0,passo,int(df.contribuinte[i]/100)),
+                       np.random.uniform(0, df.centil_SUP[i], int(df.contribuinte[i]/100))])
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora podemos visualizar a distribuição de renda por percentil. Para que tenhamos alguma referência, indicamos os limites das classes sociais D, C, B, e A, bem como o que serião as classes de grandes fortunas (que se dividiriam também em C, B e A.&lt;/p&gt;
+&lt;p&gt;Também marcamos a linha da pobreza e a linha que indica o teto do salário no Judiciário.&lt;/p&gt;
+&lt;p&gt;A diferença de escalas é muito grande e é necessário uma escala logarítmica para viasualizar os dados. Mesmo esta escala não é muito fácil fazer todos os percentis aparecerem. Os dados se espalham por 7 ordens de grandeza.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize = (14,4))
+fig.suptitle(&amp;quot;Percentis de renda do Brasil em 2018 e classes econômicas&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+
+for cent in np.arange(5,tmp.shape[0]):
+    plt.scatter(x = tmp[cent][0], y = tmp[cent][1], s = 5, marker=&amp;quot;.&amp;quot;, alpha = 0.1)
+x = np.linspace(99,100.05,200)
+ax.fill_between(x, Faixas[0]*12000, Faixas[0]*20000, alpha = 0.7, label = &amp;quot;Grandes Fortunas B&amp;quot;)
+ax.fill_between(x, Faixas[0]*20000, Faixas[0]*70000, alpha = 0.7, label = &amp;quot;Grandes Fortunas C&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 100.05,200)
+ax.fill_between(x, classeB[1], 12*39*SM, alpha = 0.7, label = &amp;quot;Classe A&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[0]].centil.max(), df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 200)
+ax.fill_between(x, *classeB, alpha = 0.7, label = &amp;quot;Classe B:&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeC[0]].centil.max(), df[df.centil_SUP &amp;lt; classeC[1]].centil.max(), 200)
+ax.fill_between(x, *classeC, alpha = 0.7, label = &amp;quot;Classe C&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeD[0]].centil.max(), df[df.centil_SUP &amp;lt; classeD[1]].centil.max(), 200)
+ax.fill_between(x, *classeD, alpha = 0.7, label = &amp;quot;Classe D&amp;quot;)
+
+ax.axhline(12*39*SM, linewidth=2.5, linestyle = &amp;quot;dashed&amp;quot;, label = &amp;quot;Teto do Judiciario&amp;quot;);
+ax.axhline(365*3.4*5.5, linewidth=2.5, linestyle = &amp;quot;dotted&amp;quot;, color = &amp;quot;red&amp;quot;, label = &amp;quot;Linha da Pobreza&amp;quot;);
+ax.set_yscale(&amp;quot;log&amp;quot;)
+ax.scatter(x = df.centil, y = df.media, marker = &amp;quot;x&amp;quot;, c = &amp;quot;red&amp;quot;, label= &amp;quot;media de renda&amp;quot;)
+ax.set_ylim(100,10000000000)
+ax.set_xlim(1,101)
+ax.set_title(&amp;quot;Cada ponto corresponde a cerca de 3000 pessoas para cada 1%&amp;quot;)
+ax.set_ylabel(&amp;quot;Renda Bruta Anual (Log)&amp;quot;)
+ax.set_xlabel(&amp;quot;Percentil de renda&amp;quot;)
+plt.grid()
+plt.legend(loc=&#39;upper left&#39;)
+#fig.savefig(&#39;GrandesFortunas.png&#39;, dpi=300)
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_22_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Vamos agora observar com mais detalhe os percentis mais altos. Observamos que a distância entre as classes B e A e a extrema pobreza são menores do que as distâncias até o início da marca das grandes fortunas.&lt;/p&gt;
+&lt;p&gt;Na definição atual de grandes fortunas, apenas uma pequena parte do percentil 99.9 - 100 é considerado grande fortuna, ou seja, as pessoas 100 vezes mais ricas do que a classe A típica. No gráfico abaixo, sem uma escala logarítmica, a classe B sequer apareceria!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize = (14,4))
+fig.suptitle(&amp;quot;Percentis de renda do Brasil em 2018 e classes econômicas&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+
+for cent in np.arange(5,tmp.shape[0]):
+    plt.scatter(x = tmp[cent][0], y = tmp[cent][1], s = 5, marker=&amp;quot;.&amp;quot;, alpha = 0.1)
+x = np.linspace(99,100.05,200)
+ax.fill_between(x, Faixas[0]*12000, Faixas[0]*20000, alpha = 0.7, label = &amp;quot;Grandes Fortunas B&amp;quot;)
+ax.fill_between(x, Faixas[0]*20000, Faixas[0]*70000, alpha = 0.7, label = &amp;quot;Grandes Fortunas C&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 100.05,200)
+ax.fill_between(x, classeB[1], 12*39*SM, alpha = 0.7, label = &amp;quot;Classe A&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[0]].centil.max(), df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 200)
+ax.fill_between(x, *classeB, alpha = 0.7, label = &amp;quot;Classe B:&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeC[0]].centil.max(), df[df.centil_SUP &amp;lt; classeC[1]].centil.max(), 200)
+ax.fill_between(x, *classeC, alpha = 0.7, label = &amp;quot;Classe C&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeD[0]].centil.max(), df[df.centil_SUP &amp;lt; classeD[1]].centil.max(), 200)
+ax.fill_between(x, *classeD, alpha = 0.7, label = &amp;quot;Classe D&amp;quot;)
+
+ax.axhline(12*39*SM, linewidth=2.5, linestyle = &amp;quot;dashed&amp;quot;, label = &amp;quot;Teto do Judiciario&amp;quot;);
+ax.axhline(365*3.4*5.5, linewidth=2.5, linestyle = &amp;quot;dotted&amp;quot;, color = &amp;quot;red&amp;quot;, label = &amp;quot;Linha da Pobreza&amp;quot;);
+ax.set_yscale(&amp;quot;log&amp;quot;)
+ax.scatter(x = df.centil, y = df.media, marker = &amp;quot;x&amp;quot;, c = &amp;quot;red&amp;quot;, label= &amp;quot;media de renda&amp;quot;)
+ax.set_ylim(100,10000000000)
+ax.set_xlim(90,101)
+ax.set_title(&amp;quot;Zoom no topo da pirâmide&amp;quot;)
+ax.set_ylabel(&amp;quot;Renda Bruta Anual (Log)&amp;quot;)
+ax.set_xlabel(&amp;quot;Percentil de renda&amp;quot;)
+plt.grid()
+plt.legend(loc=&#39;upper left&#39;)
+#fig.savefig(&#39;GrandesFortunas.png&#39;, dpi=300)
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_24_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O imposto de renda pago por cada contribuinte pode ser representado por uma alíquota efetiva, que leva em conta as diferentes faixas do imposto. Vamos aqui calcular a Alíquota efetiva por percentil.&lt;/p&gt;
+&lt;p&gt;Para fazer isto vamos considerar o número de pessoas no percentil com renda dada pela média de renda do percentil, o que correspone a um total de renda do percentil.&lt;/p&gt;
+&lt;p&gt;A tabela da receita apresenta também a informação de quanto foi o IR devido para todo o percentil. A razão entre estes dois números vai informar uma alíquota efetiva.&lt;/p&gt;
+&lt;p&gt;Vemos que  crescimento da alíquota efetiva tem um padrão curioso nos percentis mais altos.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df[&amp;quot;Efetivo&amp;quot;] = df.IR*1000000/(df.media*df.contribuinte)
+df = df.dropna()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Alíquota efetiva de IR por percentil dos contribuintes&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+for i in np.arange(5,len(df.centil)-7):
+    x = np.linspace(df.centil[i]-0.5, df.centil[i]+0.5,10)
+    ax.fill_between(x, df.Efetivo[i])
+for i in np.arange(98,len(df.centil)+4):
+    x = np.linspace(df.centil[i]-0.05, df.centil[i]+0.05,10)
+    ax.fill_between(x, df.Efetivo[i])
+#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+#                color=&amp;quot;b&amp;quot;, 
+#                alpha = 0.2)
+ax.set_title(&amp;quot;Apenas classes C, B e A&amp;quot;)
+ax.set_ylabel(&amp;quot;Alíquota Efetiva&amp;quot;)
+ax.set_xlabel(&amp;quot;Percentil de renda&amp;quot;)
+ax.set_xlim(30,105)
+#plt.legend()
+#fig.savefig(&#39;ImpostoEfetivo.png&#39;, dpi=300)
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_27_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Alíquota efetiva de IR por percentil dos contribuintes&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+for i in np.arange(5,len(df.centil)-7):
+    x = np.linspace(df.centil[i]-0.5, df.centil[i]+0.5,10)
+    ax.fill_between(x, df.Efetivo[i], alpha = 0.6)
+for i in np.arange(98,len(df.centil)+4):
+    x = np.linspace(df.centil[i]-0.05, df.centil[i]+0.05,10)
+    ax.fill_between(x, df.Efetivo[i], alpha = 0.6)
+#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+#                color=&amp;quot;b&amp;quot;, 
+#                alpha = 0.2)
+ax.set_title(&amp;quot;Apenas classes C, B e A&amp;quot;)
+ax.set_ylabel(&amp;quot;Alíquota Efetiva&amp;quot;)
+ax.set_xlabel(&amp;quot;Percentil de renda&amp;quot;)
+ax.set_xlim(90,105)
+plt.grid()
+#plt.legend()
+fig.savefig(&#39;ImpostoEfetivo.png&#39;, dpi=300)
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_28_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Imposto Devido Total por percentil dos contribuintes&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+for i in np.arange(5,len(df.centil)-6):
+    x = np.linspace(df.centil[i]-0.5, df.centil[i]+0.5,10)
+    ax.fill_between(x, df.IR[i])
+for i in np.arange(99,len(df.centil)+4):
+    x = np.linspace(df.centil[i]+0.5-0.05, df.centil[i]+0.5+0.05,10)
+    ax.fill_between(x, df.IR[i])
+ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+                color=&amp;quot;b&amp;quot;, 
+                alpha = 0.2)
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 100.05,200)
+ax.fill_between(x, 20000, 21000, alpha = 0.6, label = &amp;quot;Classe A&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeB[0]].centil.max(), df[df.centil_SUP &amp;lt; classeB[1]].centil.max(), 200)
+ax.fill_between(x, 20000, 21000, alpha = 0.6, label = &amp;quot;Classe B:&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeC[0]].centil.max(), df[df.centil_SUP &amp;lt; classeC[1]].centil.max(), 200)
+ax.fill_between(x, 20000, 21000, alpha = 0.6, label = &amp;quot;Classe C&amp;quot;)
+
+x = np.linspace(df[df.centil_SUP &amp;lt; classeD[0]].centil.max(), df[df.centil_SUP &amp;lt; classeD[1]].centil.max(), 200)
+ax.fill_between(x, *classeD, alpha = 0.7, label = &amp;quot;Classe D&amp;quot;)
+ax.set_title(&amp;quot;Apenas classes C, B e A&amp;quot;)
+ax.set_ylabel(&amp;quot;Valor Devido do IR (R\$ milhões)&amp;quot;)
+ax.set_xlabel(&amp;quot;Percentil de renda&amp;quot;)
+ax.set_xlim(50,105)
+ax.set_ylim(0,30000)
+plt.grid()
+#ax.set_yscale(&amp;quot;log&amp;quot;)
+#plt.legend()
+fig.savefig(&#39;ImpostoEfetivo.png&#39;, dpi=300)
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_29_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O 1% mais rica da população contribui com mais imposto do que 78% dos contribuintes somados. Por outro lado, a média de renda do pecentil 99.9 é maior do que todas as rendas somadas até o percentil 97!&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.IR[-10:].sum() &amp;lt; df.IR[0:76].sum();
+df.IR[-10:].sum() &amp;lt; df.IR[0:77].sum();
+df.centil[77];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df.media[-1:].sum() &amp;lt; df.media[0:96].sum();
+df.centil[-1:];
+df.centil[96];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;dados-por-natureza-de-ocupação&#34;&gt;Dados por Natureza de Ocupação&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df_Nat = pd.read_excel(&amp;quot;./DATA/RELATORIO_2017.xlsx&amp;quot;,
+              sheet_name=&amp;quot;NATUREZA&amp;quot;)  
+df_Ocu = pd.read_excel(&amp;quot;./DATA/RELATORIO_2017.xlsx&amp;quot;,
+              sheet_name=&amp;quot;OCUPACAO&amp;quot;)  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df_Nat = df_Nat.drop(columns = [&amp;quot;NATUREZA_DA_OCUPACAO&amp;quot;]).groupby(&amp;quot;TIPO&amp;quot;).sum()
+df_Nat[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Nat.QTDE_DECLARANTES/df_Nat.QTDE_DECLARANTES.sum()
+df_Nat[&amp;quot;FRACAO_RTL&amp;quot;] = df_Nat.RTL/df_Nat.RTL.sum()
+df_Nat[&amp;quot;FRACAO_IR&amp;quot;] = df_Nat.IR/df_Nat.IR.sum()
+
+df_Nat[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Nat.RTL/(df_Nat.QTDE_DECLARANTES*13)
+df_Nat[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Nat.IR/df_Nat.QTDE_DECLARANTES
+
+df_Nat = df_Nat.reset_index()
+df_Nat = df_Nat.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;TIPO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Nat.TIPO = df_Nat.TIPO.astype(&#39;category&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df_Ocu = df_Ocu.drop(columns = [&amp;quot;OCUPACAO&amp;quot;]).groupby(&amp;quot;Tipo&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;Tipo&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.Tipo = df_Ocu.Tipo.astype(&#39;category&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As tabelas da receita federal também apresentam dados consolidados por ocupação e profissão. Reorgnizamos as categorias da Receita nas categorias abaixo para facilitar a visualização. A renda média mensal líquida é calculada a partir da soma da renda da categoria, dividida pela população de contribuintes na categoria e dividido por 13, correspondendo ao salário de 12 meses mais o 13 salário..&lt;/p&gt;
+&lt;p&gt;Funcionários do sistema financeiro público ou privado e servidores públicos apresentam a maior renda, seguidos pelos empregador na iniciativa privada e militares que seguem quase empátados e depois, todos no mesmo nível Autônomos, Pensionistas, pequenas empresas e outros.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df = df_Nat[df_Nat[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;TIPO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_38_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Se observarmos o extrato por profissão temos que levar em consideração que muitas profissões se enquadram em outros, que não estão sendo considerados. O foco é comparar os dados para os servidores públicos do executivo, legislativo e judiciário (junto com Ministerio Público) com militares, professores, funcionários da saúde e padres e pastores.&lt;/p&gt;
+&lt;p&gt;É fácil observar que o número de declarantes no extrato considerado é majoritariamente de professores. As outras duas colunas se referem a participação do extrato profissional no todo, com respeito a renda total líquida e o imposto devido.&lt;/p&gt;
+&lt;p&gt;A mudança de proporção entre as colunas indica variações na renda média entre a coluna de declarantes e a coluna de renda líquida e o imposto devido carrega as informações de renda e de representação na população.&lt;/p&gt;
+&lt;p&gt;A renda édia de servidores do Juciário, servidores de saúde e servidores públicos em geral deve se mostgrar significativamente mais elevada do que as rendas das outras categorias. Podemos estimar que a renda média de militares e de pŕofessores deva ser semelhante.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import matplotlib.ticker as ticker
+
+df = df_Ocu[~df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;, &amp;quot;IR_capita&amp;quot;])]
+df = df[df.Tipo != &amp;quot;OUTROS&amp;quot;]
+df.Tipo = df.Tipo.astype(str)
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Fração do Total&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+
+ax = sns.barplot(data=df, x=&#39;Tipo&#39;, y=&#39;Value&#39;, hue=&#39;fracao&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;%&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+ax.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=5))
+
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles = handles, labels=[&amp;quot;Declarantes&amp;quot;, &amp;quot;Renda Líquida&amp;quot;, &amp;quot;Imposto Devido&amp;quot;])
+
+plt.grid()
+plt.show();
+
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_40_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ao observarmos a renda média mensal entre as diferentes profissões, vemos que o Judiário e os funcionários do Fisco se destacam dos outros, logo depois os servidores do executivo e os servidores em geral.&lt;/p&gt;
+&lt;p&gt;Chama atenção que os profissionais da Saúde parecem ter uma renda pequena, mas todas as áreas estão agregadas.&lt;/p&gt;
+&lt;p&gt;Também os professores apresentam uma renda baixa, mas estão agregados diferentes profissionais da educação.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;Tipo&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_42_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;df_OcuZ = pd.read_excel(&amp;quot;./DATA/RELATORIO_2017.xlsx&amp;quot;,
+              sheet_name=&amp;quot;OCUPACAO&amp;quot;)  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Quando observamos os extrados segmentados, vemos que os professores de ensino superior são significativamente melhos remunerados do que os outros. Ganhando essencialmente o dobro dos outros professores.&lt;/p&gt;
+&lt;p&gt;Também os médicos se destacam, ganhando o triplo do que as outras categoriasda saúde.&lt;/p&gt;
+&lt;p&gt;Também encontramos uma uniformidade nas carreiras do judiciário e entre os servidores públicos.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prof = &amp;quot;PROFESSOR&amp;quot;
+df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby(&amp;quot;OCUPACAO&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;OCUPACAO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.OCUPACAO = df_Ocu.OCUPACAO.astype(&#39;category&#39;)
+
+df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal - Profissionais de Educação&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;OCUPACAO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_45_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prof = &amp;quot;SAÚDE&amp;quot;
+df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby(&amp;quot;OCUPACAO&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;OCUPACAO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.OCUPACAO = df_Ocu.OCUPACAO.astype(&#39;category&#39;)
+
+df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal - Profissionais da Saúde&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;OCUPACAO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_46_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prof = &amp;quot;SERVIDOR&amp;quot;
+df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby(&amp;quot;OCUPACAO&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;OCUPACAO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.OCUPACAO = df_Ocu.OCUPACAO.astype(&#39;category&#39;)
+
+df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal - Servidor Público&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;OCUPACAO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_47_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prof = &amp;quot;JUDICIARIO&amp;quot;
+df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby(&amp;quot;OCUPACAO&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;OCUPACAO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.OCUPACAO = df_Ocu.OCUPACAO.astype(&#39;category&#39;)
+
+df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal - JUDICIÁRIO&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;OCUPACAO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_48_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prof = &amp;quot;EXECUTIVO&amp;quot;
+df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby(&amp;quot;OCUPACAO&amp;quot;).sum()
+df_Ocu[&amp;quot;FRACAO_Declarantes&amp;quot;] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
+df_Ocu[&amp;quot;FRACAO_RTL&amp;quot;] = df_Ocu.RTL/df_Ocu.RTL.sum()
+df_Ocu[&amp;quot;FRACAO_IR&amp;quot;] = df_Ocu.IR/df_Ocu.IR.sum()
+df_Ocu[&amp;quot;RTL_capita&amp;quot;] = 1000000000*df_Ocu.RTL/(df_Ocu.QTDE_DECLARANTES*13)
+df_Ocu[&amp;quot;IR_capita&amp;quot;] = 1000000000*df_Ocu.IR/df_Ocu.QTDE_DECLARANTES
+df_Ocu = df_Ocu.reset_index()
+df_Ocu = df_Ocu.drop(
+    columns = [&amp;quot;QTDE_DECLARANTES&amp;quot;, &amp;quot;RT_EXCLUSIVO&amp;quot;, &amp;quot;RT&amp;quot;, &amp;quot;RISENTO&amp;quot;, &amp;quot;RTL&amp;quot;, &amp;quot;IR&amp;quot;])\
+    .melt(id_vars=[&amp;quot;OCUPACAO&amp;quot;], var_name=&amp;quot;fracao&amp;quot;, value_name=&amp;quot;Value&amp;quot;)
+df_Ocu.OCUPACAO = df_Ocu.OCUPACAO.astype(&#39;category&#39;)
+
+df = df_Ocu[df_Ocu[&amp;quot;fracao&amp;quot;].isin([&amp;quot;RTL_capita&amp;quot;])]
+
+fig = plt.figure(figsize = (15,5))
+fig.suptitle(&amp;quot;Renda Líquida Média Mensal - EXECUTIVO&amp;quot;, fontsize=14, fontweight=&#39;bold&#39;)
+ax = fig.add_subplot(111 )
+ax = sns.barplot(data=df, x=&#39;OCUPACAO&#39;, y=&#39;Value&#39;)
+
+ax.set_xlabel(&amp;quot;Natureza da Ocupação&amp;quot;)
+ax.set_ylabel(&amp;quot;R\$&amp;quot;)
+ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment=&#39;right&#39;)
+
+
+plt.grid()
+plt.show();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;./index_49_0.png&#34; alt=&#34;png&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     

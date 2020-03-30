@@ -33,58 +33,8 @@
   </url>
   
   <url>
-    <loc>https://lbarosi.github.io/Blog/tags/astropy/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/authors/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/categories/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/categories/cosmology/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/tags/frb/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/authors/luciano-barosi/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://lbarosi.github.io/Blog/post/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/post/pulsares/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/tags/pulsars/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/categories/python/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lbarosi.github.io/Blog/tags/</loc>
-    <lastmod>2020-03-24T20:41:42-03:00</lastmod>
+    <lastmod>2019-07-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -107,11 +57,28 @@
   </url>
   
   <url>
+    <loc>https://lbarosi.github.io/Blog/post/grandesfortunas/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/authors/</loc>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/categories/</loc>
+  </url>
+  
+  <url>
     <loc>https://lbarosi.github.io/Blog/courses/</loc>
   </url>
   
   <url>
     <loc>https://lbarosi.github.io/Blog/publication_types/</loc>
+  </url>
+  
+  <url>
+    <loc>https://lbarosi.github.io/Blog/tags/</loc>
   </url>
   
 </urlset>
