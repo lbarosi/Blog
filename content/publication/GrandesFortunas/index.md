@@ -1,53 +1,46 @@
 ---
-# Distribuição de Renda no Brasil
-title: Distribuição de Renda no Brasil
-description: O que de verdade uma grande fortuna? Quais carreiras são melhor remuneradas? Um pequeno passeio nos dados sumarizados da receita federal
-Date: 2020-03-29  
-Author: Luciano Barosi
-Categories: [Python,Data Science]
-Tags: [Brasil, Renda]
+
+title: "Distribuição de Renda no Brasil"
+description: "O que de verdade uma grande fortuna? Quais carreiras são melhor remuneradas? Um pequeno passeio nos dados sumarizados da receita federal"
+Date: "2020-03-29"  
+Author: "Luciano Barosi"
+Categories: ["Python","Data Science"]
+Tags: ["Brasil", "Renda"] 
 featured: true
-header:
-     image: featured.png
-     caption: "teste"
 ---
-
-
-
-Como você acha que se posiciona na pirâmica econômica brasileira? Quão grande é a desigualdade de renda no Brasil? Um pequeno passeio nos dados sumarizados da receita federal.
+# Grandes Fortunas no Brasil
 
 ## Inicialização
 
-<!--
+
 ```python
 # show result from all calculations of the cell
 from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
-``` -->
+```
 
-<!--
+
 ```python
-#hide
 # Kernel Python
 import os
 import sys
 os.chdir(sys.path[0])
 dirpath = os.getcwd()
 print("Diretório atual: " + dirpath)
-``` -->
+```
 
     Diretório atual: /home/lbarosi/Pythonia/GrandesFortunas
 
 
-<!--
+
 ```python
 import numpy as np
 from scipy import stats
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
 import matplotlib.ticker as ticker
 import pandas as pd
 import seaborn as sns
-``` -->
+```
 
 ## Proposta
 
@@ -98,7 +91,7 @@ A tabela em excel da receita federal não é útil para análise de dados automa
 
 Consideramos a tabela disponível para as informações consolidadas **RB2** que inclui renda tributável, participações societárias, lucros e dividendos e rendas sujeitas a tributação exclusiva.
 
-Selecionamos os percentis (**centil**), o número de contribuintes (**contribuinte**), o limite superior do percentil (**centil_SUP** em R\$), a média de renda do percentil (**media** em R\$) e o importo devido da faixa (**IR** em milhões de R\$).
+Selecionamos os percentis (**centil**), o número de contribuintes (**contribuinte**), o limite superior do percentil (**centil_SUP** em R\$), a média de renda do percentil (**media** em R\$) e o importo devido da faixa (**IR** em milhões de R\$). 
 
 
 ```python
@@ -109,9 +102,8 @@ df = pd.read_csv("./DATA/centis-ac2018.csv", sep = ";")
 
 Criamos uma amostra da população em cada percentil dividindo a quantidade da população do percentil por 100 e distribuimos suas rendas de maneira uniforme no intervalo. O intuito aqui é puramente gráfico, para mostrar a densidade de pessoas em cada faixa de renda.
 
-<!--
+
 ```python
-#hide
 tmp = np.empty(len(df.media), dtype=object)
 for i in np.arange(0,len(df.media)):
     def step(x):
@@ -124,17 +116,16 @@ for i in np.arange(0,len(df.media)):
     tmp[i] = np.array([df.centil[i]-st + np.random.uniform(0,passo,int(df.contribuinte[i]/100)),
                        np.random.uniform(0, df.centil_SUP[i], int(df.contribuinte[i]/100))])
 
-``` -->
+```
 
 Agora podemos visualizar a distribuição de renda por percentil. Para que tenhamos alguma referência, indicamos os limites das classes sociais D, C, B, e A, bem como o que serião as classes de grandes fortunas (que se dividiriam também em C, B e A.
 
 Também marcamos a linha da pobreza e a linha que indica o teto do salário no Judiciário.
 
-A diferença de escalas é muito grande e é necessário uma escala logarítmica para viasualizar os dados. Mesmo esta escala não é muito fácil fazer todos os percentis aparecerem. Os dados se espalham por 7 ordens de grandeza.
+A diferença de escalas é muito grande e é necessário uma escala logarítmica para viasualizar os dados. Mesmo esta escala não é muito fácil fazer todos os percentis aparecerem. Os dados se espalham por 7 ordens de grandeza. 
 
-<!--
+
 ```python
-#hide
 fig = plt.figure(figsize = (14,4))
 fig.suptitle("Percentis de renda do Brasil em 2018 e classes econômicas", fontsize=14, fontweight='bold')
 ax = fig.add_subplot(111 )
@@ -170,19 +161,18 @@ plt.grid()
 plt.legend(loc='upper left')
 #fig.savefig('GrandesFortunas.png', dpi=300)
 plt.show();
-``` -->
+```
 
 
-![png](./index_24_0.png)
+![png](./index_22_0.png)
 
 
 Vamos agora observar com mais detalhe os percentis mais altos. Observamos que a distância entre as classes B e A e a extrema pobreza são menores do que as distâncias até o início da marca das grandes fortunas.
 
 Na definição atual de grandes fortunas, apenas uma pequena parte do percentil 99.9 - 100 é considerado grande fortuna, ou seja, as pessoas 100 vezes mais ricas do que a classe A típica. No gráfico abaixo, sem uma escala logarítmica, a classe B sequer apareceria!
 
-<!--
+
 ```python
-#hide
 fig = plt.figure(figsize = (14,4))
 fig.suptitle("Percentis de renda do Brasil em 2018 e classes econômicas", fontsize=14, fontweight='bold')
 ax = fig.add_subplot(111 )
@@ -218,15 +208,15 @@ plt.grid()
 plt.legend(loc='upper left')
 #fig.savefig('GrandesFortunas.png', dpi=300)
 plt.show();
-``` -->
+```
 
 
-![png](./index_26_0.png)
+![png](./index_24_0.png)
 
 
 O imposto de renda pago por cada contribuinte pode ser representado por uma alíquota efetiva, que leva em conta as diferentes faixas do imposto. Vamos aqui calcular a Alíquota efetiva por percentil.
 
-Para fazer isto vamos considerar o número de pessoas no percentil com renda dada pela média de renda do percentil, o que correspone a um total de renda do percentil.
+Para fazer isto vamos considerar o número de pessoas no percentil com renda dada pela média de renda do percentil, o que correspone a um total de renda do percentil. 
 
 A tabela da receita apresenta também a informação de quanto foi o IR devido para todo o percentil. A razão entre estes dois números vai informar uma alíquota efetiva.
 
@@ -240,7 +230,6 @@ df = df.dropna()
 
 
 ```python
-#hide
 fig = plt.figure(figsize = (15,5))
 fig.suptitle("Alíquota efetiva de IR por percentil dos contribuintes", fontsize=14, fontweight='bold')
 ax = fig.add_subplot(111 )
@@ -250,8 +239,8 @@ for i in np.arange(5,len(df.centil)-7):
 for i in np.arange(98,len(df.centil)+4):
     x = np.linspace(df.centil[i]-0.05, df.centil[i]+0.05,10)
     ax.fill_between(x, df.Efetivo[i])
-#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(),
-#                color="b",
+#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+#                color="b", 
 #                alpha = 0.2)
 ax.set_title("Apenas classes C, B e A")
 ax.set_ylabel("Alíquota Efetiva")
@@ -264,12 +253,11 @@ plt.show();
 ```
 
 
-![png](./index_29_0.png)
+![png](./index_27_0.png)
 
 
-<!--
+
 ```python
-#hide
 fig = plt.figure(figsize = (15,5))
 fig.suptitle("Alíquota efetiva de IR por percentil dos contribuintes", fontsize=14, fontweight='bold')
 ax = fig.add_subplot(111 )
@@ -279,8 +267,8 @@ for i in np.arange(5,len(df.centil)-7):
 for i in np.arange(98,len(df.centil)+4):
     x = np.linspace(df.centil[i]-0.05, df.centil[i]+0.05,10)
     ax.fill_between(x, df.Efetivo[i], alpha = 0.6)
-#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(),
-#                color="b",
+#ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+#                color="b", 
 #                alpha = 0.2)
 ax.set_title("Apenas classes C, B e A")
 ax.set_ylabel("Alíquota Efetiva")
@@ -290,15 +278,14 @@ plt.grid()
 #plt.legend()
 fig.savefig('ImpostoEfetivo.png', dpi=300)
 plt.show();
-``` -->
+```
 
 
-![png](./index_30_0.png)
+![png](./index_28_0.png)
 
 
-<!--
+
 ```python
-#hide
 fig = plt.figure(figsize = (15,5))
 fig.suptitle("Imposto Devido Total por percentil dos contribuintes", fontsize=14, fontweight='bold')
 ax = fig.add_subplot(111 )
@@ -308,8 +295,8 @@ for i in np.arange(5,len(df.centil)-6):
 for i in np.arange(99,len(df.centil)+4):
     x = np.linspace(df.centil[i]+0.5-0.05, df.centil[i]+0.5+0.05,10)
     ax.fill_between(x, df.IR[i])
-ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(),
-                color="b",
+ax.fill_between(np.linspace(99.55, 100.55,10), df.IR[-10:].sum(), 
+                color="b", 
                 alpha = 0.2)
 x = np.linspace(df[df.centil_SUP < classeB[1]].centil.max(), 100.05,200)
 ax.fill_between(x, 20000, 21000, alpha = 0.6, label = "Classe A")
@@ -333,14 +320,14 @@ plt.grid()
 fig.savefig('ImpostoEfetivo.png', dpi=300)
 plt.show();
 ```
- -->
 
-![png](./index_31_0.png)
+
+![png](./index_29_0.png)
 
 
 O 1% mais rica da população contribui com mais imposto do que 78% dos contribuintes somados. Por outro lado, a média de renda do pecentil 99.9 é maior do que todas as rendas somadas até o percentil 97!
 
-<!--
+
 ```python
 df.IR[-10:].sum() < df.IR[0:76].sum();
 df.IR[-10:].sum() < df.IR[0:77].sum();
@@ -352,7 +339,7 @@ df.centil[77];
 df.media[-1:].sum() < df.media[0:96].sum();
 df.centil[-1:];
 df.centil[96];
-``` -->
+```
 
 ## Dados por Natureza de Ocupação
 
@@ -381,7 +368,7 @@ df_Nat = df_Nat.drop(
 df_Nat.TIPO = df_Nat.TIPO.astype('category')
 ```
 
-<!--
+
 ```python
 df_Ocu = df_Ocu.drop(columns = ["OCUPACAO"]).groupby("Tipo").sum()
 df_Ocu["FRACAO_Declarantes"] = df_Ocu.QTDE_DECLARANTES/df_Ocu.QTDE_DECLARANTES.sum()
@@ -394,7 +381,7 @@ df_Ocu = df_Ocu.drop(
     columns = ["QTDE_DECLARANTES", "RT_EXCLUSIVO", "RT", "RISENTO", "RTL", "IR"])\
     .melt(id_vars=["Tipo"], var_name="fracao", value_name="Value")
 df_Ocu.Tipo = df_Ocu.Tipo.astype('category')
-``` -->
+```
 
 As tabelas da receita federal também apresentam dados consolidados por ocupação e profissão. Reorgnizamos as categorias da Receita nas categorias abaixo para facilitar a visualização. A renda média mensal líquida é calculada a partir da soma da renda da categoria, dividida pela população de contribuintes na categoria e dividido por 13, correspondendo ao salário de 12 meses mais o 13 salário..
 
@@ -421,7 +408,7 @@ plt.show();
 ```
 
 
-![png](./index_40_0.png)
+![png](./index_38_0.png)
 
 
 Se observarmos o extrato por profissão temos que levar em consideração que muitas profissões se enquadram em outros, que não estão sendo considerados. O foco é comparar os dados para os servidores públicos do executivo, legislativo e judiciário (junto com Ministerio Público) com militares, professores, funcionários da saúde e padres e pastores.
@@ -432,7 +419,7 @@ A mudança de proporção entre as colunas indica variações na renda média en
 
 A renda édia de servidores do Juciário, servidores de saúde e servidores públicos em geral deve se mostgrar significativamente mais elevada do que as rendas das outras categorias. Podemos estimar que a renda média de militares e de pŕofessores deva ser semelhante.
 
-<!--
+
 ```python
 import matplotlib.ticker as ticker
 
@@ -455,15 +442,14 @@ ax.legend(handles = handles, labels=["Declarantes", "Renda Líquida", "Imposto D
 
 plt.grid()
 plt.show();
+
+
+
+
 ```
- -->
 
 
-
-
-
-
-![png](./index_42_0.png)
+![png](./index_40_0.png)
 
 
 Ao observarmos a renda média mensal entre as diferentes profissões, vemos que o Judiário e os funcionários do Fisco se destacam dos outros, logo depois os servidores do executivo e os servidores em geral.
@@ -472,7 +458,7 @@ Chama atenção que os profissionais da Saúde parecem ter uma renda pequena, ma
 
 Também os professores apresentam uma renda baixa, mas estão agregados diferentes profissionais da educação.
 
-<!--
+
 ```python
 df = df_Ocu[df_Ocu["fracao"].isin(["RTL_capita"])]
 
@@ -488,17 +474,17 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_44_0.png)
+![png](./index_42_0.png)
 
-<!--
+
 
 ```python
 df_OcuZ = pd.read_excel("./DATA/RELATORIO_2017.xlsx",
               sheet_name="OCUPACAO")  
-``` -->
+```
 
 Quando observamos os extrados segmentados, vemos que os professores de ensino superior são significativamente melhos remunerados do que os outros. Ganhando essencialmente o dobro dos outros professores.
 
@@ -507,7 +493,7 @@ Também os médicos se destacam, ganhando o triplo do que as outras categoriasda
 Também encontramos uma uniformidade nas carreiras do judiciário e entre os servidores públicos.
 
 
-<!--
+
 ```python
 prof = "PROFESSOR"
 df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby("OCUPACAO").sum()
@@ -536,13 +522,13 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_47_0.png)
+![png](./index_45_0.png)
 
 
-<!--
+
 ```python
 prof = "SAÚDE"
 df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby("OCUPACAO").sum()
@@ -571,13 +557,13 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_48_0.png)
+![png](./index_46_0.png)
 
 
-<!--
+
 ```python
 prof = "SERVIDOR"
 df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby("OCUPACAO").sum()
@@ -606,13 +592,13 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_49_0.png)
+![png](./index_47_0.png)
 
 
-<!--
+
 ```python
 prof = "JUDICIARIO"
 df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby("OCUPACAO").sum()
@@ -641,13 +627,13 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_50_0.png)
+![png](./index_48_0.png)
 
 
-<!--
+
 ```python
 prof = "EXECUTIVO"
 df_Ocu = df_OcuZ[df_OcuZ.Tipo == prof].groupby("OCUPACAO").sum()
@@ -676,7 +662,8 @@ ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right
 
 plt.grid()
 plt.show();
-``` -->
+```
 
 
-![png](./index_51_0.png)
+![png](./index_49_0.png)
+
